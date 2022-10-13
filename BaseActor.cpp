@@ -4,7 +4,7 @@
 
 namespace
 {
-    BaseActorVtable Vtable = {nullptr, &BaseActorVirtualUpdate};
+    const BaseActorVtable Vtable = {nullptr, &BaseActorVirtualUpdate};
 }
 
 void BaseActorConstructor(BaseActor* self)
@@ -16,7 +16,7 @@ void BaseActorConstructor(BaseActor* self)
 void BaseActorDestructor(BaseActor* self)
 {
     if (self->HasVirtualDestructor)
-        static_cast<BaseActorVtable*>(self->Vptr)->ChildDestructor(self);
+        static_cast<const BaseActorVtable*>(self->Vptr)->ChildDestructor(self);
     else
         std::cout << "BaseActor Destructor !" << std::endl;
 }
@@ -33,5 +33,5 @@ void BaseActorVirtualUpdate(BaseActor* self)
 
 void BaseActorUpdate(BaseActor* self)
 {
-    static_cast<BaseActorVtable*>(self->Vptr)->Update(self);
+    static_cast<const BaseActorVtable*>(self->Vptr)->Update(self);
 }

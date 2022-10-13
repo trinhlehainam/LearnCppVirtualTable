@@ -4,7 +4,7 @@
 
 namespace
 {
-    CharacterVtable Vtable = {
+    const CharacterVtable Vtable = {
         [](void* self)
         {
             CharacterDestructor(static_cast<Character*>(self));
@@ -56,10 +56,10 @@ void CharacterVirtualAttack(Character* self)
 
 void CharacterUpdate(Character* self)
 {
-    static_cast<CharacterVtable*>(self->Parent.Vptr)->Update(self);
+    static_cast<const CharacterVtable*>(self->Parent.Vptr)->Update(self);
 }
 
 void CharacterAttack(Character* self)
 {
-    static_cast<CharacterVtable*>(self->Parent.Vptr)->Attack(self);
+    static_cast<const CharacterVtable*>(self->Parent.Vptr)->Attack(self);
 }

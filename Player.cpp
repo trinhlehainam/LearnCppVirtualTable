@@ -4,7 +4,7 @@
 
 namespace
 {
-    PlayerVtable Vtable = {
+    const PlayerVtable Vtable = {
         [](void* self)
         {
             PlayerDestructor(static_cast<Player*>(self));
@@ -40,10 +40,10 @@ void PlayerDestructor(Player* self)
 
 void PlayerUpdate(Player* self)
 {
-    static_cast<PlayerVtable*>(self->Parent.Parent.Vptr)->Update(&self->Parent);
+    static_cast<const PlayerVtable*>(self->Parent.Parent.Vptr)->Update(&self->Parent);
 }
 
 void PlayerAttack(Player* self)
 {
-    static_cast<PlayerVtable*>(self->Parent.Parent.Vptr)->Attack(&self->Parent);
+    static_cast<const PlayerVtable*>(self->Parent.Parent.Vptr)->Attack(&self->Parent);
 }
